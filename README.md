@@ -784,9 +784,7 @@ Screenshots can be added here to showcase the application.
 
 ### 🔐 Authentication
 
-```text
-screenshots/auth.png
-```
+![Authentication_process](./auth_process.png)
 
 ---
 
