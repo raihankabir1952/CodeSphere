@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id                         String    @id @default(uuid())
+  name                       String
+  email                      String    @unique
+  password                   String
+  createdAt                  DateTime  @default(now())
+  updatedAt                  DateTime  @updatedAt
+  avatar                     String?
+  coverPhoto                 String?
+  bio                        String?
+  emailVerified              Boolean   @default(false)
+  emailVerificationExpiresAt DateTime?
+  emailVerificationToken     String?
+  passwordResetExpiresAt     DateTime?
+  passwordResetToken         String?
+  comments                   Comment[]
+  likes                      Like[]
+  posts                      Post[]
+}
+
+model Post {
+  id        String    @id @default(uuid())
+  content   String
+  image     String?
+  authorId  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  comments  Comment[]
+  likes     Like[]
+  author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+model Like {
+  id        String   @id @default(uuid())
+  userId    String
+  postId    String
+  createdAt DateTime @default(now())
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, postId])
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+
+  userId    String
+  postId    String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  parentId String?
+  parent   Comment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies  Comment[] @relation("CommentReplies")
+}
