@@ -5,7 +5,7 @@
 The project was built with a **production-oriented full-stack architecture** using Next.js, NestJS, Prisma, PostgreSQL, WebSockets, Cloudinary, and Resend.
 
 <p align="center">
-  <a href="https://codesphere-7tqe0yi1u-raihans-projects-9a4b96c8.vercel.app/">
+  <a href="https://code-sphere-swart.vercel.app/">
     <img src="https://img.shields.io/badge/🚀%20Live%20Demo-CodeSphere-black?style=for-the-badge&logo=vercel" alt="Live Demo" />
   </a>
   <a href="https://github.com/raihankabir1952/CodeSphere">
