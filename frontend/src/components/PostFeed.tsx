@@ -49,6 +49,9 @@ type Comment = {
   createdAt: string;
   updatedAt: string;
 
+  userId: string;
+  parentId: string | null;
+
   user: {
     id: string;
     name: string;
@@ -1059,8 +1062,8 @@ export default function PostFeed() {
                     likingPostId === post.id
                   }
                   className={`flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-semibold transition ${post.likedByCurrentUser
-                      ? "bg-red-100 text-red-500 shadow-sm"
-                      : "text-slate-500 hover:bg-white hover:text-red-500 hover:shadow-sm"
+                    ? "bg-red-100 text-red-500 shadow-sm"
+                    : "text-slate-500 hover:bg-white hover:text-red-500 hover:shadow-sm"
                     } disabled:cursor-not-allowed disabled:opacity-60`}
                 >
                   {likingPostId === post.id ? (
@@ -1095,9 +1098,9 @@ export default function PostFeed() {
                     )
                   }
                   className={`flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-semibold transition ${openCommentPostId ===
-                      post.id
-                      ? "bg-cyan-100 text-cyan-600 shadow-sm"
-                      : "text-slate-500 hover:bg-white hover:text-cyan-600 hover:shadow-sm"
+                    post.id
+                    ? "bg-cyan-100 text-cyan-600 shadow-sm"
+                    : "text-slate-500 hover:bg-white hover:text-cyan-600 hover:shadow-sm"
                     }`}
                 >
                   <MessageCircle size={18} />
