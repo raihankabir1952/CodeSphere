@@ -8,6 +8,7 @@ import {
   Code2,
   LockKeyhole,
   Mail,
+  FlaskConical,
 } from "lucide-react";
 
 import api from "@/lib/api";
@@ -18,12 +19,16 @@ export default function LoginPage() {
   const { login } = useAuth();
 
   const [email, setEmail] = useState("");
-  const [password, setPassword] =
-    useState("");
+  const [password, setPassword] = useState("");
 
   const [error, setError] = useState("");
-  const [loading, setLoading] =
-    useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleDemoLogin = () => {
+    setEmail("arif@codesphere.test");
+    setPassword("Test@123456");
+    setError("");
+  };
 
   const handleSubmit = async (
     e: FormEvent<HTMLFormElement>,
@@ -34,25 +39,18 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const response = await api.post(
-        "/auth/login",
-        {
-          email,
-          password,
-        },
-      );
+      const response = await api.post("/auth/login", {
+        email,
+        password,
+      });
 
-      const { accessToken } =
-        response.data;
+      const { accessToken } = response.data;
 
       await login(accessToken);
 
       router.push("/");
     } catch (error: any) {
-      console.error(
-        "Login error:",
-        error,
-      );
+      console.error("Login error:", error);
 
       setError(
         error?.response?.data?.message ||
@@ -66,12 +64,9 @@ export default function LoginPage() {
   return (
     <main className="min-h-[calc(100vh-4rem)] bg-slate-50 px-4 py-12">
       <div className="mx-auto flex min-h-[calc(100vh-10rem)] max-w-md items-center justify-center">
-
         <div className="w-full">
-
           {/* Heading */}
           <div className="mb-8 text-center">
-
             <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-slate-900 text-white shadow-sm">
               <Code2 size={24} />
             </div>
@@ -87,12 +82,39 @@ export default function LoginPage() {
 
           {/* Card */}
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+            {/* Demo Account */}
+            <div className="mb-6 rounded-xl border border-cyan-100 bg-cyan-50/70 p-4">
+              <div className="flex items-start gap-3">
+                <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-cyan-100 text-cyan-700">
+                  <FlaskConical size={18} />
+                </div>
+
+                <div className="min-w-0 flex-1">
+                  <h2 className="text-sm font-semibold text-slate-800">
+                    Try the Demo Account
+                  </h2>
+
+                  <p className="mt-1 text-xs leading-5 text-slate-500">
+                    Want to explore CodeSphere without creating an
+                    account? Use our demo account to quickly test
+                    the platform and its features.
+                  </p>
+
+                  <button
+                    type="button"
+                    onClick={handleDemoLogin}
+                    className="mt-3 inline-flex items-center rounded-lg bg-white px-3 py-2 text-xs font-semibold text-cyan-700 shadow-sm ring-1 ring-cyan-200 transition hover:bg-cyan-50"
+                  >
+                    Use Demo Account
+                  </button>
+                </div>
+              </div>
+            </div>
 
             <form
               onSubmit={handleSubmit}
               className="space-y-5"
             >
-
               {/* Email */}
               <div>
                 <label
@@ -151,9 +173,7 @@ export default function LoginPage() {
                     type="password"
                     value={password}
                     onChange={(e) =>
-                      setPassword(
-                        e.target.value,
-                      )
+                      setPassword(e.target.value)
                     }
                     placeholder="Enter your password"
                     required
@@ -177,9 +197,7 @@ export default function LoginPage() {
                 disabled={loading}
                 className="flex w-full items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {loading
-                  ? "Logging in..."
-                  : "Login"}
+                {loading ? "Logging in..." : "Login"}
 
                 {!loading && (
                   <ArrowRight size={17} />
