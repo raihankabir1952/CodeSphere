@@ -772,21 +772,15 @@ Screenshots can be added here to showcase the application.
 
 ### 🏠 News Feed
 
-```text
-screenshots/news-feed.png
-```
+![News Feed](./news-feed.png)
 
 ### 👤 Developer Profile
 
-```text
-screenshots/profile.png
-```
+![Developer Profile](./profile.png)
 
 ### 📝 Posts & Comments
 
-```text
-screenshots/post-comments.png
-```
+![Posts & Comments](./post-comments.png)
 
 ### 🔐 Authentication
 
